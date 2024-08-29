@@ -49,22 +49,23 @@ thread = client.beta.threads.create(
 
 # Take promps from input
 with open(prompts_filename, "r") as file:
-    content = file.read().strip()
+  content = file.read().strip()
 prompts = content.split("\n\n")
 answers = []
 
 # Add to answers based on prompt
 for prompt in prompts: 
-    current_run = client.beta.threads.runs.create_and_poll(
-    thread_id=thread.id, assistant_id=assistant.id, instructions=prompt
-    )
-    messages = list(client.beta.threads.messages.list(thread_id=thread.id, run_id=current_run.id))
+  current_run = client.beta.threads.runs.create_and_poll(
+  thread_id=thread.id, assistant_id=assistant.id, instructions=prompt
+  )
+  messages = list(client.beta.threads.messages.list(thread_id=thread.id, run_id=current_run.id))
+  if messages: 
     message_content = str(messages[0].content[0].text)
     answers.append(message_content)
 
 
 with open("text_answers.tex", "w") as file:
-    file.write("\n------------\n".join(answers))
+  file.write("\n------------\n".join(answers))
 
 
 # (Delete assistant to reduce account clutter)
