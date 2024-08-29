@@ -63,10 +63,8 @@ for prompt in prompts:
     message_content = str(messages[0].content[0].text.value)
     answers.append(message_content)
 
-
 with open("text_answers.tex", "w") as file:
   file.write("\n------------\n".join(answers))
-
 
 # (Delete assistant to reduce account clutter)
 deletion_response = client.beta.assistants.delete(assistant.id)
