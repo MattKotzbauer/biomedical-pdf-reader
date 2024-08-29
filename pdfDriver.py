@@ -39,7 +39,7 @@ thread = client.beta.threads.create(
   messages=[
     {
       "role": "user",
-      "content": "Summarize the content of the biomedical PDF with the guidance of the following prompts",
+      "content": "Summarize the content of the biomedical PDF with the guidance of the following prompts;",
       "attachments": [
         { "file_id": message_file.id, "tools": [{"type": "file_search"}] }
       ],
@@ -55,12 +55,10 @@ answers = []
 
 # Add to answers based on prompt
 for prompt in prompts: 
-    print(prompt)
     current_run = client.beta.threads.runs.create_and_poll(
     thread_id=thread.id, assistant_id=assistant.id, instructions=prompt
     )
     messages = list(client.beta.threads.messages.list(thread_id=thread.id, run_id=current_run.id))
-    print(messages)
     message_content = str(messages[0].content[0].text)
     answers.append(message_content)
 
