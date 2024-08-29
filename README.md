@@ -9,3 +9,8 @@ The current main questions are A) how to get it better at Beamer formatting and 
 
 An interesting next step for this could be to void the reliance on OpenAI / GPT by running the PDF and prompt interpretation on an open-source model (e.g. [DocFormer](https://arxiv.org/abs/2106.11539)) on cloud spot compute. 
 
+Relevant Docs: 
+[OpenAI API Reference](https://platform.openai.com/docs/api-reference)
+[File Search Assistant Introduction](https://platform.openai.com/docs/assistants/tools/file-search)
+[OpenAI Assistants Quickstart](https://platform.openai.com/docs/assistants/quickstart)
+
