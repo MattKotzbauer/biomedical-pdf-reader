@@ -60,7 +60,7 @@ for prompt in prompts:
   )
   messages = list(client.beta.threads.messages.list(thread_id=thread.id, run_id=current_run.id))
   if messages: 
-    message_content = str(messages[0].content[0].text)
+    message_content = str(messages[0].content[0].text.value)
     answers.append(message_content)
 
 

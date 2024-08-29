@@ -1,3 +1,75 @@
-Text(annotations=[], value="```markdown\n## Benchmarking DESeq2 Fold Change Estimates\n\n### Precision of Fold Change Estimates\n\n- DESeq2 uses an empirical prior for shrinkage of Log Fold Change (LFC) estimates.\n- Benchmark comparisons against GFOLD and edgeR showed:\n  - Consistently low root-mean-square error and mean absolute error for DESeq2 across sample sizes and models.\n  - GFOLD had low error for all genes but higher error for differentially expressed genes at larger sample sizes.\n  - edgeR with default settings performed similarly to DESeq2 for differentially expressed genes but with higher error across all genes.\n\n### Clustering Performance\n\n- Compared rlog transformation with other methods using the adjusted Rand index for hierarchical clustering.\n- Methods compared:\n  - Euclidean distance for normalized counts, log-transformed counts, rlog-transformed counts, and VST counts.\n  - Poisson distance and edgeR's internal distance measure.\n- Results:\n  - For equal size factors, Poisson distance and Euclidean distance of rlog-transformed/VST counts outperformed other methods.\n  - For unequal size factors, rlog transformation generally outperformed other methods.\n- Normalized data from rlog can be used in various applications, e.g., distance calculations.\n\n### Simulation and Benchmark Data\n\n- Simulations verify algorithm performance but may not reflect real-world data complexities.\n- Benchmarked DESeq2 using sensitivity, precision, false-positive rate, and experimental reproducibility on real datasets.\n- DESeq2 often achieved the highest sensitivity while controlling the False Discovery Rate (FDR).\n\n### Key Findings\n\n- DESeq2 offers reliable LFC estimates with reduced errors for small sample sizes and noisy data.\n- rlog transformation enhances clustering and downstream analysis by providing stable and normalized data.\n- High sensitivity and precision in benchmarks make DESeq2 a valuable tool for RNA-seq data analysis.\n\n```\n")
-------------
-Text(annotations=[], value="```markdown\n## Evaluation of False Positive Rate and Precision of Fold Change Estimates\n\n### False Positive Rate\n\n- **Dataset Used**: RNA-seq data from Pickrell et al. for lymphoblastoid cell lines.\n- **Mock Comparisons**:\n  - Performed to assess the algorithms' false positive rates.\n  - Randomly grouped samples with no known condition, ensuring no true differential expression.\n- **Results**:\n  - DESeq2 effectively controlled type-I errors.\n  - Maintained a median false positive rate just below the chosen critical value in mock comparisons.\n  - Demonstrated effective control of type-I errors, maintaining statistical reliability across various benchmarks.\n\n### Precision of Fold Change Estimates\n\n- **Empirical Prior for Shrinkage**:\n  - DESeq2 uses an empirical prior to shrink Log Fold Change (LFC) estimates.\n  - Benchmarked against GFOLD and edgeR methods.\n- **Benchmark Results**:\n  - DESeq2 consistently showed low root-mean-square error and mean absolute error across different sample sizes and distribution models.\n  - GFOLD showed low error overall but performed worse on differentially expressed genes for larger sample sizes.\n  - edgeR (default settings) showed similar performance to DESeq2 for differentially expressed genes but higher error overall.\n\n### Clustering Performance\n\n- **Methods Compared Using Adjusted Rand Index**:\n  - Euclidean distance for normalized counts.\n  - Log-transformed counts.\n  - Regularized log (rlog) transformed counts.\n  - Variance Stabilizing Transformation (VST) counts.\n- **Results**:\n  - Poisson distance and Euclidean distance of rlog-transformed/VST counts outperformed other methods when size factors were equal.\n  - rlog transformation generally outperformed other methods for unequal size factors.\n  - rlog provides normalized data, useful for a variety of applications.\n\n### Usage and Conclusions\n\n- **DESeq2**:\n  - Provides highly stable and accurate LFC estimates for RNA-seq data.\n  - Suitable for experiments with small sample sizes or high dispersion.\n  - Supports a wide range of applications, including hierarchical clustering and effective quality assessment.\n  - Empirical Bayes shrinkage improves statistical reliability by reducing excessive variance in fold changes.\n\n```\n")
+# Precision of Fold Change Estimates and Benchmarking
+
+## DESeq2 Approach and Comparison
+
+- **Overview of DESeq2**:
+  - Utilizes empirical priors to achieve shrinkage of Log Fold Change (LFC) estimates.
+  - Goal: Enhance stability and interpretability of results for RNA-seq data analysis.
+
+- **Benchmarked Against**:
+  - **GFOLD**:
+    - Capable of analyzing experiments without replication.
+    - Handles experiments with and without replicates.
+  - **edgeR**:
+    - Uses pseudocount-based shrinkage termed predictive LFCs.
+
+## Results
+
+- **Error Metrics**:
+  - DESeq2 consistently shows low root-mean-square error and mean absolute error.
+  - Performance held across various sample sizes and LFC distribution models.
+
+- **Performance Specifics**:
+  - **GFOLD**:
+    - Comparable error to DESeq2 overall.
+    - Performs worse for larger samples when focusing on differentially expressed genes.
+  - **edgeR**:
+    - Similar performance to DESeq2 for differentially expressed genes.
+    - Higher error across all genes compared to DESeq2.
+
+## Simulation and Practical Insights
+
+- **Simulations**:
+  - Simulations validate theoretical behavior of algorithms.
+  - Important limitation: Simulations do not reflect real-world complexities precisely.
+
+- **Practical Considerations**:
+  - RNA-seq data brings complications due to unknown underlying truth.
+  - Real-world benchmarks are necessary for practical validation.
+
+---
+
+### Example Visual (for Presentation Slide)
+
+```latex
+\begin{frame}{Precision of Fold Change Estimates}
+    \frametitle{Benchmarking DESeq2}
+    \begin{itemize}
+        \item \textbf{DESeq2} 
+        \begin{itemize}
+            \item Uses empirical priors for shrinkage of LFC estimates.
+            \item Aims to improve stability and interpretability of RNA-seq data results.
+        \end{itemize}
+        \item Compared against \textbf{GFOLD} and \textbf{edgeR}
+        \begin{itemize}
+            \item GFOLD: Handles non-replicate data.
+            \item edgeR: Provides predictive LFCs using pseudocount.
+        \end{itemize}
+        \item \textbf{Results \& Metrics}
+        \begin{itemize}
+            \item DESeq2 shows consistently low error rates.
+            \item GFOLD and edgeR have specific strengths but higher overall errors.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+```
+
+---
+
+## Conclusion
+
+- DESeq2 demonstrates robust performance for fold change estimation in RNA-seq data.
+- Benchmarking against GFOLD and edgeR shows its advantage in terms of error metrics across sample sizes.
+- Simulations are valuable but require real-data benchmarks to validate practical utility.
+
+\[ \text{Source: Love\_DESeq2.pdf} \]
